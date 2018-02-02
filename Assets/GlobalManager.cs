@@ -17,6 +17,8 @@ public class GlobalManager : MonoBehaviour {
 		set {referenceDate = value;}
 	}
 	
+	public enum BuildingType { Apartment, LuxApartment, Hotel};
+	
 	// Use this for initialization
 	void Awake () {
 		// Set the 2nd of Febryary 2018 as the exact ref date, to calculate timestamps. (Keeps the variables' values small)
