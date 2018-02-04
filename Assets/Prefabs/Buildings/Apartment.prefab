@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4252270953994354}
   - component: {fileID: 33178724318949484}
   - component: {fileID: 23014732148374540}
-  - component: {fileID: 95424304412783652}
+  - component: {fileID: 114659592953488918}
+  - component: {fileID: 64495138832293550}
   m_Layer: 0
   m_Name: Apartment
   m_TagString: Untagged
@@ -55,11 +56,11 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d14afe0b179d2f24e95e6dbc3d596886, type: 2}
-  - {fileID: 2100000, guid: 4fe229b2d25565748a911830ab166af6, type: 2}
-  - {fileID: 2100000, guid: 151a15f6b7b721d4786866f9983d5d34, type: 2}
-  - {fileID: 2100000, guid: 47f45d6570fa3da4aa9981cf37ffc581, type: 2}
-  - {fileID: 2100000, guid: 102bae77eac3d8747b1ad278ad01d1b7, type: 2}
+  - {fileID: 2100000, guid: 64b5aae80d903654aaec506385393bba, type: 2}
+  - {fileID: 2100000, guid: 7b51b35d074660446ad34dec90f55b2a, type: 2}
+  - {fileID: 2100000, guid: 49283469e4526d641abbcfdc95c321b4, type: 2}
+  - {fileID: 2100000, guid: d4a95a4144b75214e84798cc5c115e45, type: 2}
+  - {fileID: 2100000, guid: 64b5aae80d903654aaec506385393bba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,20 +86,29 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1838148542954410}
   m_Mesh: {fileID: 4300000, guid: c8c0ac4c680f7704691118a770df51ba, type: 3}
---- !u!95 &95424304412783652
-Animator:
-  serializedVersion: 3
+--- !u!64 &64495138832293550
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838148542954410}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: c8c0ac4c680f7704691118a770df51ba, type: 3}
+--- !u!114 &114659592953488918
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1838148542954410}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c8c0ac4c680f7704691118a770df51ba, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814f5ff85dd40b24785a19dcc4a948d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bType: 1

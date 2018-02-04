@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4761889615618076}
   - component: {fileID: 33224643555935288}
   - component: {fileID: 23955730934754498}
-  - component: {fileID: 95574338435563626}
+  - component: {fileID: 114015885420548752}
+  - component: {fileID: 64438081098951904}
   m_Layer: 0
   m_Name: LuxApartment
   m_TagString: Untagged
@@ -86,20 +87,29 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980247493158406}
   m_Mesh: {fileID: 4300000, guid: 4ec9feb01e8bebf4ba09ec34cc9c944c, type: 3}
---- !u!95 &95574338435563626
-Animator:
-  serializedVersion: 3
+--- !u!64 &64438081098951904
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980247493158406}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 4ec9feb01e8bebf4ba09ec34cc9c944c, type: 3}
+--- !u!114 &114015885420548752
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980247493158406}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 4ec9feb01e8bebf4ba09ec34cc9c944c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814f5ff85dd40b24785a19dcc4a948d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bType: 2

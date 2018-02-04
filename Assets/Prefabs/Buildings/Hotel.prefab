@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4965846263228792}
   - component: {fileID: 33244259610511240}
   - component: {fileID: 23115686712088014}
-  - component: {fileID: 95006918370119828}
+  - component: {fileID: 114007030125563506}
+  - component: {fileID: 64831945258615360}
   m_Layer: 0
   m_Name: Hotel
   m_TagString: Untagged
@@ -85,20 +86,29 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1070635743146924}
   m_Mesh: {fileID: 4300000, guid: 00432b2421cc0104f97d189f80d8cbae, type: 3}
---- !u!95 &95006918370119828
-Animator:
-  serializedVersion: 3
+--- !u!64 &64831945258615360
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1070635743146924}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 00432b2421cc0104f97d189f80d8cbae, type: 3}
+--- !u!114 &114007030125563506
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1070635743146924}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 00432b2421cc0104f97d189f80d8cbae, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814f5ff85dd40b24785a19dcc4a948d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bType: 3
