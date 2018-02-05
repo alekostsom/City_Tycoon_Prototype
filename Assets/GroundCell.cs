@@ -33,6 +33,8 @@ public class GroundCell : MonoBehaviour {
 	string buildingTypeString;
 	// The income amount to be generated every time unit
 	int incomeAmountPerSec;
+	// The building type's cost
+	int buildingTypeCost;
 	// The 'UnderConstruction' UI element
 	GameObject underConstruction;
 	// The 'Generated Income' UI element
@@ -86,23 +88,34 @@ public class GroundCell : MonoBehaviour {
 	
 	void OnMouseDown()
 	{
-		Debug.Log("Received click on: " + gameObject.name);
-		Debug.Log("Ready to start building: " + gm_Instance.SelectedBType);
-		if (!building)
-			StartBuilding(gm_Instance.SelectedBType);
+		// Apply actions only when player has selected a building type
+		if (gm_Instance.SelectedBType != GlobalManager.BuildingType.None){
+			if (!building){
+				StartBuilding(gm_Instance.SelectedBType);
+				
+				// Set the selected building to none
+				gm_Instance.SelectedBType = GlobalManager.BuildingType.None;
+				
+				// Change the status message
+				gm_Instance.statusText.text = "Select a building type";
+			}
+		}
 
 	}
 	
 	// Create a mouse hover effect when the mouse is over a buildable area
 	void OnMouseEnter() {
-        // Enlight the surface of the area
-		if (!built){
-			GetComponentsInChildren<Renderer>()[1].material.color = Color.white;
+		// Apply actions only when player has selected a building type
+		if (gm_Instance.SelectedBType != GlobalManager.BuildingType.None){
+			// Enlight the surface of the area
+			if (!built){
+				GetComponentsInChildren<Renderer>()[1].material.color = Color.white;
+			}
 		}
     }	
     void OnMouseExit() {
 		// Set back the original color
-        if (!built){
+		if (!built){
 			GetComponentsInChildren<Renderer>()[1].material.color = originalColor;
 		}
     }
@@ -117,6 +130,9 @@ public class GroundCell : MonoBehaviour {
 		
 		// Store the building's type
 		PlayerPrefs.SetString("BuildingType_" + x_coord.ToString() + "_" + y_coord.ToString(), bt.ToString());
+		
+		// Charge the player 
+		PlayerPrefs.SetInt("Balance", PlayerPrefs.GetInt("Balance") - buildingTypeCost);
 
 		// Start constructing
 		StartCoroutine(CompleteConstruction());
@@ -131,16 +147,19 @@ public class GroundCell : MonoBehaviour {
 				objToBuild = gm_Instance.apartmentBuildingObj;
 				incomeAmountPerSec = 1;
 				buildingTypeString = "Apartment";
+				buildingTypeCost = 20;
 				break;
 			case GlobalManager.BuildingType.LuxApartment:
 				objToBuild = gm_Instance.luxAptBuildingObj;
 				incomeAmountPerSec = 4;
 				buildingTypeString = "Luxury Apartment";
+				buildingTypeCost = 80;
 				break;
 			case GlobalManager.BuildingType.Hotel:
 				objToBuild = gm_Instance.hotelBuildingObj;
 				incomeAmountPerSec = 10;
 				buildingTypeString = "Hotel";
+				buildingTypeCost = 250;
 				break;
 		}
 		
@@ -158,8 +177,8 @@ public class GroundCell : MonoBehaviour {
 		//convert grid cell object position in 3D Space to its correspondand sceen position. 
 		Vector2 screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 		// Place the UI element at the exact screen position of the 3D object. In order to work, the UI element's anchor must be set at the bottom left corner of the screen. 
-		// Translate the UI element 100 pixels up.
-		underConstruction.GetComponent<RectTransform>().anchoredPosition = screenPoint + Vector2.up * 100;		
+		// Translate the UI element 70 pixels up.
+		underConstruction.GetComponent<RectTransform>().anchoredPosition = screenPoint + Vector2.up * 70;		
 	}
 	
 	public void InstantiateIncomeUI(){
@@ -168,8 +187,8 @@ public class GroundCell : MonoBehaviour {
 		//convert grid cell object position in 3D Space to its correspondand sceen position. 
 		Vector2 screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 		// Place the UI element at the exact screen position of the 3D object. In order to work, the UI element's anchor must be set at the bottom left corner of the screen. 
-		// Translate the UI element 100 pixels up.
-		incomeUI.GetComponent<RectTransform>().anchoredPosition = screenPoint + Vector2.up * 100;	
+		// Translate the UI element 70 pixels up.
+		incomeUI.GetComponent<RectTransform>().anchoredPosition = screenPoint + Vector2.up * 70;	
 		
 		// Update the text values;
 		incomeUI.GetComponentsInChildren<Text>()[0].text = buildingTypeString;
@@ -184,7 +203,7 @@ public class GroundCell : MonoBehaviour {
 		if (underConstruction)
 		{
 			underConstruction.GetComponent<UnderConstruction>().percentText.text = ((now - creationTimestamp)*100/60).ToString() + "%";
-			underConstruction.GetComponent<UnderConstruction>().percentImage.sizeDelta = new Vector2(((now - creationTimestamp)*150/60), 36);// 150 is the maximum size of the foreground slider
+			underConstruction.GetComponent<UnderConstruction>().percentImage.sizeDelta = new Vector2(((now - creationTimestamp)*125/60), 36);// 125 is the maximum size of the foreground slider
 			yield return new WaitForSecondsRealtime(1f);
 			StartCoroutine(UpdateConstructionUI());
 		}
@@ -196,25 +215,45 @@ public class GroundCell : MonoBehaviour {
 		int now = (int)(System.DateTime.UtcNow - gm_Instance.ReferenceDate).TotalSeconds;
 		
 		yield return new WaitForSecondsRealtime(/*timeToConstruct*/ 60 - (now - creationTimestamp));
+		int completionTimestamp = creationTimestamp + 60;
 		
+		// Set the construction phase as 'built'
 		built = true;
 		
 		// Store the construction completion timestamp in seconds
 		PlayerPrefs.SetInt("CompletionTimestamp_" + x_coord.ToString() + "_" + y_coord.ToString(), creationTimestamp + 60);
 		
 		// Start generating income
-		PlayerPrefs.SetInt("Income_" + x_coord.ToString() + "_" + y_coord.ToString(), 0);
+		// First calculate the already generated income
+		now = (int)(System.DateTime.UtcNow - gm_Instance.ReferenceDate).TotalSeconds;
+		PlayerPrefs.SetInt("Income_" + x_coord.ToString() + "_" + y_coord.ToString(), (now - completionTimestamp) * incomeAmountPerSec);
+		// Now start updating every second
 		StartCoroutine(CalculateIncome());
 		
 		StopCoroutine(UpdateConstructionUI());
 		Destroy (underConstruction);		
 	}
 	
-	// A coroutine that calculates and updates income
+	// A coroutine that calculates and updates income every second
 	IEnumerator CalculateIncome(){	
+		//Wait for a second to pass, then add the income
 		yield return new WaitForSecondsRealtime(1f);
+		
+		// Add the building type's income amount
 		PlayerPrefs.SetInt("Income_" + x_coord.ToString() + "_" + y_coord.ToString(), PlayerPrefs.GetInt("Income_" + x_coord.ToString() + "_" + y_coord.ToString()) + incomeAmountPerSec);
-		Debug.Log(x_coord.ToString() + "_" + y_coord.ToString() + " generated income: " + PlayerPrefs.GetInt("Income_" + x_coord.ToString() + "_" + y_coord.ToString()));
+		
+		/*
+		// Instantiate income effect
+		GameObject incomeEffect = GameObject.Instantiate(gm_Instance.incomeEffectUI, gm_Instance.canvasObj.transform, false) as GameObject;
+
+		Vector2 screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+		// Place the UI element at the exact screen position of the 3D object. In order to work, the UI element's anchor must be set at the bottom left corner of the screen. 
+		incomeEffect.GetComponent<RectTransform>().anchoredPosition = screenPoint + Vector2.up * 70;
+		
+		incomeEffect.GetComponentInChildren<Text>().text = "+" + incomeAmountPerSec;
+		*/
+		
+		// Restart the coroutine
 		StartCoroutine(CalculateIncome());
 	}
 	

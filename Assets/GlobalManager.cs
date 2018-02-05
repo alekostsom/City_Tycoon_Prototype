@@ -39,6 +39,8 @@ public class GlobalManager : MonoBehaviour {
 	public GameObject underConstructionUI;
 	// Generated Income UI prefab
 	public GameObject generatedIncomeUI;
+	// Income Effect UI prefab
+	public GameObject incomeEffectUI;
 	
 	// Editor exposed variable to get reference of the status text object
 	public Text statusText;
@@ -47,9 +49,9 @@ public class GlobalManager : MonoBehaviour {
 		Grid related variables
 	****/	
 	// Number of ground celss on each line
-	public int cellsPerLine = 4;
+	int cellsPerLine = 6;
 	// Number of ground celss on each row
-	public int cellsPerRow = 4; 
+	int cellsPerRow = 6; 
 	// An array of the grid's ground celss to manage their functions
 	GroundCell[,] groundCells;
 	// The grid parent object in hierarchy
@@ -117,12 +119,22 @@ public class GlobalManager : MonoBehaviour {
 	
 	// Calculate total balance, with income and expenses
 	IEnumerator CalculateBalance(){
-		totalBalance = balance;
+		
+		balanceText.text = "Coins: " + GetTotalBalance();
+		yield return new WaitForSecondsRealtime(1f);
+		StartCoroutine(CalculateBalance());
+	}
+	
+	public int GetTotalBalance(){
+		// Get the player's balance 
+		balance = PlayerPrefs.GetInt("Balance");
+		
+		// Accumulate the income
+		int totalBalance = balance;
 		foreach (GroundCell gc in groundCells){
 			totalBalance += PlayerPrefs.GetInt("Income_" + gc.X_coord.ToString() + "_" + gc.Y_coord.ToString());
 		}
-		balanceText.text = "Coins: " + totalBalance;
-		yield return new WaitForSecondsRealtime(1f);
-		StartCoroutine(CalculateBalance());
+		
+		return totalBalance;
 	}
 }
