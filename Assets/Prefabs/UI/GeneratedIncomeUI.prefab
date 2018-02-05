@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 224562058124487164}
   - component: {fileID: 222422177770173222}
   - component: {fileID: 114709061365612468}
-  - component: {fileID: 114774554267166512}
   m_Layer: 5
   m_Name: GeneratedIncomeUI
   m_TagString: Untagged
@@ -156,19 +155,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114774554267166512
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1426121938503020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 225abcdd28fdf1a41b09ea9befe22c31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  percentImage: {fileID: 0}
-  percentText: {fileID: 0}
 --- !u!222 &222125166185723814
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -222,8 +208,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1101.13, y: 824.42}
-  m_SizeDelta: {x: 125, y: 90}
+  m_AnchoredPosition: {x: 87.5, y: 45}
+  m_SizeDelta: {x: 175, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224629130373386472
 RectTransform:
