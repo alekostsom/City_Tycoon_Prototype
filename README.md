@@ -1,5 +1,7 @@
 # City_Tycoon_Prototype
 
+Developed by Alexandros Tsompolis as a test during his job application at Two Nerds. Unity version: 2017.1
+
 6x6 city/base grid. Select type of building and place it on the grid to start construction (1 min.). You can select and build only the types of building you can afford based on their cost. 
 You earn income after the buildings are constructed.
 
