@@ -17,6 +17,8 @@ public class BuiltBuilding : MonoBehaviour {
 		set {built = value;}
 	}
 	
+	bool canShowUI = false;
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -24,6 +26,8 @@ public class BuiltBuilding : MonoBehaviour {
 		foreach (Renderer renderer in renderers){
 			materials = renderer.materials;
 		}
+		
+		canShowUI = true;
 	}
 	
 	// Update is called once per frame
@@ -34,8 +38,9 @@ public class BuiltBuilding : MonoBehaviour {
 	// Show generated income on click on a built building
 	void OnMouseDown()
 	{
-		if (built){
+		if (built && canShowUI){
 			transform.parent.GetComponent<GroundCell>().InstantiateIncomeUI();
+			canShowUI = false;
 		}
 	}
 	// Create a mouse hover effect when the mouse is over a built building
@@ -59,6 +64,7 @@ public class BuiltBuilding : MonoBehaviour {
 			if (incomeUI){
 				Destroy(incomeUI);
 			}
+			canShowUI = true;
 		}
     }
 }
