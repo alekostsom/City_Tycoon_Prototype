@@ -27,8 +27,8 @@ public class MenuManager : MonoBehaviour {
 		// Delete all previous progress in the game
 		PlayerPrefs.DeleteAll();
 		
-		// Initialise player's balance, so he can buy and start constructing his first building
-		PlayerPrefs.SetInt("Balance", 20);
+		// Initialise player's balance, so he can buy and start constructing his first buildings
+		PlayerPrefs.SetInt("Balance", 60);
 		
 		// Store a game session
 		PlayerPrefs.SetInt("GameSessions", 1);

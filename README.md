@@ -14,3 +14,5 @@ Royalty free Background music: Pim Poy Pocket by DL Sounds. Downloaded from: htt
 Button click sound downloaded from: https://freesound.org/s/220212/
 
 Google font: https://fonts.google.com/specimen/Open+Sans
+
+NOTE: Please add the two scenes (menu (0), demo_scene (1)) to build settings and start launching the menu. Otherwise, play directly by loading the demo_scene.
